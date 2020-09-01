@@ -19,6 +19,7 @@ class courseSelection extends frontControllerApplication
 			'administrators'	=> 'administrators',
 			'webmasterContact'	=> '/contacts/webmaster.html',
 			'authentication' => true,
+			'tabUlClass'					=> 'tabsflat',
 			'databaseAssessments' => 'assessments',	/* Note that these are only used for the lookup of people and colleges from the people database, not the main application itself */
 			'userCallback'				=> NULL,		// NB Currently only a simple public function name supported
 			'academicStaffCallback'		=> NULL,		// NB Currently only a simple public function name supported
