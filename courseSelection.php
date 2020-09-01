@@ -88,51 +88,51 @@ class courseSelection extends frontControllerApplication
 			
 			-- Administrators
 			CREATE TABLE `administrators` (
-			  `username__JOIN__people__people__reserved` varchar(255) COLLATE utf8_unicode_ci PRIMARY KEY NOT NULL COMMENT 'Username',
-			  `active` enum('','Yes','No') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'Yes' COMMENT 'Currently active?',
-			  `privilege` enum('Administrator','Restricted administrator') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'Administrator' COMMENT 'Administrator level',
+			  `username__JOIN__people__people__reserved` varchar(191) COLLATE utf8mb4_unicode_ci PRIMARY KEY NOT NULL COMMENT 'Username',
+			  `active` enum('','Yes','No') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'Yes' COMMENT 'Currently active?',
+			  `privilege` enum('Administrator','Restricted administrator') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'Administrator' COMMENT 'Administrator level',
 			  PRIMARY KEY (`username__JOIN__people__people__reserved`)
-			) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='System administrators';
+			) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8mb4_unicode_ci COMMENT='System administrators';
 			
 			-- Settings
 			CREATE TABLE `settings` (
 			  `id` int(11) PRIMARY KEY NOT NULL AUTO_INCREMENT COMMENT 'Automatic key',
 			  `IB_opening` date NOT NULL COMMENT 'Opening date',
 			  `IB_closing` date NOT NULL COMMENT 'Closing date',
-			  `IB_messageHtml` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT 'Extra introductory message',
+			  `IB_messageHtml` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Extra introductory message',
 			  `IB_required` int(2) NOT NULL COMMENT 'Selections required',
 			  `IB_requiredEducation` int(2) NOT NULL COMMENT 'Selections required (Education students)',
 			  `IB_maximumEducation` int(11) NOT NULL COMMENT 'Selections maximum (Education students)',
-			  `IB_type` enum('checkboxes','select') COLLATE utf8_unicode_ci NOT NULL COMMENT 'Capping?',
+			  `IB_type` enum('checkboxes','select') COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Capping?',
 			  `IB_split` int(2) DEFAULT NULL COMMENT 'Split point (two unordered sets of main and other groups), if any',
-			  `IB_coursenames` text COLLATE utf8_unicode_ci NOT NULL COMMENT 'Course names, one per line',
+			  `IB_coursenames` text COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Course names, one per line',
 			  `IB_showoutcome` int(1) DEFAULT NULL COMMENT 'Results now visible to students and staff?',
 			  `II_opening` date NOT NULL COMMENT 'Opening date',
 			  `II_closing` date NOT NULL COMMENT 'Closing date',
-			  `II_messageHtml` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT 'Extra introductory message',
+			  `II_messageHtml` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Extra introductory message',
 			  `II_reasoning` int(1) DEFAULT NULL COMMENT 'Include questions asking for additional info?',
 			  `II_required` int(11) NOT NULL COMMENT 'Selections required',
 			  `II_requiredEducation` int(11) NOT NULL COMMENT 'Selections required (Education students)',
 			  `II_maximumEducation` int(11) NOT NULL COMMENT 'Selections maximum (Education students)',
-			  `II_type` enum('checkboxes','select') COLLATE utf8_unicode_ci NOT NULL COMMENT 'Capping?',
+			  `II_type` enum('checkboxes','select') COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Capping?',
 			  `II_split` int(2) DEFAULT NULL COMMENT 'Split point (two unordered sets of main and other groups), if any',
-			  `II_coursenames` text COLLATE utf8_unicode_ci NOT NULL COMMENT 'Course names, one per line',
+			  `II_coursenames` text COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Course names, one per line',
 			  `II_showoutcome` int(1) DEFAULT NULL COMMENT 'Results now visible to students and staff?',
-			  `ignoreUnsubmitted` text COLLATE utf8_unicode_ci COMMENT 'Students (as a list of usernames, one per line) to ignore temporarily if they have not submitted choices, to avoid capping being blocked'
-			) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Settings';
+			  `ignoreUnsubmitted` text COLLATE utf8mb4_unicode_ci COMMENT 'Students (as a list of usernames, one per line) to ignore temporarily if they have not submitted choices, to avoid capping being blocked'
+			) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8mb4_unicode_ci COMMENT='Settings';
 			
 			-- Student selections
 			CREATE TABLE `selections` (
-			  `id` varchar(255) COLLATE utf8_unicode_ci PRIMARY KEY NOT NULL COMMENT 'Key (year:username)',
-			  `academicYear` varchar(9) COLLATE utf8_unicode_ci NOT NULL COMMENT 'Academic year',
-			  `yeargroup` varchar(255) COLLATE utf8_unicode_ci NOT NULL COMMENT 'Yeargroup',
-			  `username` varchar(50) COLLATE utf8_unicode_ci NOT NULL COMMENT 'Username',
-			  `papers` varchar(255) COLLATE utf8_unicode_ci NOT NULL COMMENT 'Selection',
-			  `papersCapped` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT 'Papers (post-capping, if relevant)',
-			  `dissertation` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT 'Dissertation title',
-			  `comments` varchar(400) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT 'Reasons',
+			  `id` varchar(191) COLLATE utf8mb4_unicode_ci PRIMARY KEY NOT NULL COMMENT 'Key (year:username)',
+			  `academicYear` varchar(9) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Academic year',
+			  `yeargroup` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Yeargroup',
+			  `username` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Username',
+			  `papers` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Selection',
+			  `papersCapped` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Papers (post-capping, if relevant)',
+			  `dissertation` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Dissertation title',
+			  `comments` varchar(400) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Reasons',
 			  `updatedAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Updated at'
-			) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Student selections';
+			) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8mb4_unicode_ci COMMENT='Student selections';
 		";
 	}
 	
