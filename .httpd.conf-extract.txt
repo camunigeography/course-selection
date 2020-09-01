@@ -1,0 +1,28 @@
+# Course selection system Apache directives
+
+# Load using:
+#	Course selection system
+#	Include /path/to/course-selection/.httpd.conf.extract.txt
+#	Use MacroCourseSelection /students/courseselection "/path/to/course-selection" "Course selection"
+
+
+# Organisations directory
+<Macro MacroCourseSelection $baseUrl $repoDirectory $description>
+	
+	# Load assets
+	Alias $baseUrl/images $repoDirectory/images
+	
+	# Front controller application support
+	Use MacroFrontControllerApplication "$baseUrl/" "$description"
+	
+	# Application routing
+	RewriteRule ^$baseUrl/(submit|selections|college|capping).html$ $baseUrl/index.html?action=$1 [L,QSA]
+	RewriteRule ^$baseUrl/selections-(ib|ii).csv$ $baseUrl/index.html?action=export&yeargroup=$1 [L,QSA]
+	
+	# Downloads
+	<LocationMatch "^$baseUrl/(.+)\.csv$">
+		php_value auto_prepend_file none
+		php_value auto_append_file none
+	</LocationMatch>
+	
+</Macro>

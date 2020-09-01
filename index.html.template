@@ -1,0 +1,50 @@
+<?php
+
+# Define the settings
+$settings = array (
+	'password'					=> 'the_password',
+	'userCallback'				=> 'getUser',
+	'academicStaffCallback'		=> 'getAcademicStaff',
+	'yeargroupCallback'			=> 'getYeargroup',
+	'userIsDosCollegesCallback'	=> 'getUserIsDosColleges',
+);
+
+# Function to get details of a user
+function getUser ($databaseConnection, $userId)
+{
+	# Look up the user's status
+	// ...
+	return $userData;
+}
+
+# Callback function to get a list of academic staff
+function getAcademicStaff ($databaseConnection)
+{
+	# Get the list
+	// ...
+	return $academicStaff;
+}
+
+# Callback function to get the year group of students
+function getYeargroup ($databaseConnection, $yeargroupId)
+{
+	# Get the list
+	// ...
+	return $yeargroup;
+}
+
+
+# Callback function to determine if the user is a DoS, returning a list of their colleges if so
+function getUserIsDosColleges ($databaseConnection, $userId /* or false for all */)
+{
+	# Look-up user data from the Geography Contacts Database
+	// ...
+	return $data;
+}
+
+
+# Run the application with the specified settings
+require_once ('course-selection/courseSelection.php');
+new courseSelection ($settings);
+
+?>
