@@ -106,18 +106,18 @@ class courseSelection extends frontControllerApplication
 			  `IB_type` enum('checkboxes','select') COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Capping?',
 			  `IB_split` int(2) DEFAULT NULL COMMENT 'Split point (two unordered sets of main and other groups), if any',
 			  `IB_coursenames` text COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Course names, one per line',
-			  `IB_showoutcome` int(1) DEFAULT NULL COMMENT 'Results now visible to students and staff?',
+			  `IB_showoutcome` TINYINT DEFAULT NULL COMMENT 'Results now visible to students and staff?',
 			  `II_opening` date NOT NULL COMMENT 'Opening date',
 			  `II_closing` date NOT NULL COMMENT 'Closing date',
 			  `II_messageHtml` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Extra introductory message',
-			  `II_reasoning` int(1) DEFAULT NULL COMMENT 'Include questions asking for additional info?',
+			  `II_reasoning` TINYINT DEFAULT NULL COMMENT 'Include questions asking for additional info?',
 			  `II_required` int(11) NOT NULL COMMENT 'Selections required',
 			  `II_requiredEducation` int(11) NOT NULL COMMENT 'Selections required (Education students)',
 			  `II_maximumEducation` int(11) NOT NULL COMMENT 'Selections maximum (Education students)',
 			  `II_type` enum('checkboxes','select') COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Capping?',
 			  `II_split` int(2) DEFAULT NULL COMMENT 'Split point (two unordered sets of main and other groups), if any',
 			  `II_coursenames` text COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Course names, one per line',
-			  `II_showoutcome` int(1) DEFAULT NULL COMMENT 'Results now visible to students and staff?',
+			  `II_showoutcome` TINYINT DEFAULT NULL COMMENT 'Results now visible to students and staff?',
 			  `ignoreUnsubmitted` text COLLATE utf8mb4_unicode_ci COMMENT 'Students (as a list of usernames, one per line) to ignore temporarily if they have not submitted choices, to avoid capping being blocked'
 			) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8mb4_unicode_ci COMMENT='Settings';
 			
