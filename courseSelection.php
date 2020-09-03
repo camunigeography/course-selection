@@ -16,6 +16,7 @@ class courseSelection extends frontControllerApplication
 			'table' => 'selections',
 			'settingsTable' => 'settings',
 			'settingsTableExplodeTextarea' => true,
+			'settingsTableExplodeTextareaPairs' => array ('specialCaseSelections'),
 			'administrators'	=> 'administrators',
 			'webmasterContact'	=> '/contacts/webmaster.html',
 			'authentication' => true,
@@ -118,6 +119,7 @@ class courseSelection extends frontControllerApplication
 			  `II_split` int(2) DEFAULT NULL COMMENT 'Split point (two unordered sets of main and other groups), if any',
 			  `II_coursenames` text COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Course names, one per line',
 			  `II_showoutcome` TINYINT DEFAULT NULL COMMENT 'Results now visible to students and staff?',
+			  `specialCaseSelections` TEXT NULL COMMENT 'Special-case students with different selection numbers; add username,required',
 			  `ignoreUnsubmitted` text COLLATE utf8mb4_unicode_ci COMMENT 'Students (as a list of usernames, one per line) to ignore temporarily if they have not submitted choices, to avoid capping being blocked'
 			) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8mb4_unicode_ci COMMENT='Settings';
 			
@@ -152,7 +154,8 @@ class courseSelection extends frontControllerApplication
 				'II_type' => array ('type' => 'radiobuttons', 'values' => array ('checkboxes' => 'No capping', 'select' => 'Capping')),
 				'IB_coursenames' => array ('cols' => 60, 'rows' => 15, 'picker' => true, 'regexp' => '^([0-9]+): (.+)$', 'description' => 'Each line must begin with the course number followed by a colon and a space',),
 				'II_coursenames' => array ('cols' => 60, 'rows' => 15, 'picker' => true, 'regexp' => '^([0-9]+): (.+)$', 'description' => 'Each line must begin with the course number followed by a colon and a space',),
-				'ignoreUnsubmitted' => array ('picker' => true, 'heading' => array (3 => 'Other settings'), 'cols' => 20, 'rows' => 5, ),
+				'specialCaseSelections' => array ('heading' => array (3 => 'Other settings'), 'cols' => 30, 'rows' => 5, ),
+				'ignoreUnsubmitted' => array ('picker' => true, 'cols' => 20, 'rows' => 5, ),
 			),
 		);
 		
@@ -560,6 +563,15 @@ class courseSelection extends frontControllerApplication
 			$isEducationStudent = true;
 			$this->settings[$this->yeargroup . '_required'] = $this->settings[$this->yeargroup . '_requiredEducation'];	// Overwrite
 			$choices = $this->settings[$this->yeargroup . '_maximumEducation'];
+		}
+		
+		# If the user is listed as a special case for the number of selections required, use this
+		if ($this->settings['specialCaseSelections']) {
+			if (array_key_exists ($this->user, $this->settings['specialCaseSelections'])) {
+				$requireExactly = $this->settings['specialCaseSelections'][$this->user];
+				$this->settings[$this->yeargroup . '_required'] = $requireExactly;
+				$choices = $requireExactly;
+			}
 		}
 		
 		# Create a form
