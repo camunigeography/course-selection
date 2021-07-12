@@ -7,6 +7,7 @@ $settings = array (
 	'academicStaffCallback'		=> 'getAcademicStaff',
 	'yeargroupCallback'			=> 'getYeargroup',
 	'userIsDosCollegesCallback'	=> 'getUserIsDosColleges',
+	'contactsDatabaseUrl'		=> '/contacts/database/',
 );
 
 # Function to get details of a user

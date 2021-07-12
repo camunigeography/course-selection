@@ -26,6 +26,7 @@ class courseSelection extends frontControllerApplication
 			'academicStaffCallback'		=> NULL,		// NB Currently only a simple public function name supported
 			'yeargroupCallback'			=> NULL,		// NB Currently only a simple public function name supported
 			'userIsDosCollegesCallback'	=> NULL,		// NB Currently only a simple public function name supported
+			'contactsDatabaseUrl'		=> NULL,
 		);
 		
 		# Return the defaults
@@ -67,6 +68,13 @@ class courseSelection extends frontControllerApplication
 				'url'			=> 'selections.csv',
 				'export'		=> true,
 				'administrator'	=> true,
+			),
+			'studentdata' => array (
+				'description'	=> 'List of students',
+				'url'			=> 'studentdata.html',
+				'administrator'	=> true,
+				'tab'			=> 'Student data',
+				'icon'			=> 'user',
 			),
 			'capping' => array (
 				'description'	=> 'Import capping allocations',
@@ -1097,6 +1105,22 @@ class courseSelection extends frontControllerApplication
 		
 		# Return the HTML
 		return $html;
+	}
+	
+	
+	# Function to provide information on student data
+	public function studentdata ()
+	{
+		# Start the HTML
+		$html = '';
+		
+		# Student lists
+		$html .= "\n<p>Student data (names, colleges, year group, etc.) comes from the <a href=\"{$this->settings['contactsDatabaseUrl']}\">Contacts Database</a>.</p>";
+		$html .= "\n<p>If a student has intermitted for a year, go into their entry in the contacts database, and adjust their leaving date and course to reflect those of their new peers.</p>";
+		$html .= "\n<p>Changes made there to a student's details will be immediately reflected here.</p>";
+		
+		# Show the HTML
+		echo $html;
 	}
 	
 	
