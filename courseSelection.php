@@ -1093,7 +1093,7 @@ class courseSelection extends frontControllerApplication
 		}
 		
 		# Compile the HTML
-		$html = implode (',', $links);
+		$html = implode (', ', $links);
 		
 		# Return the HTML
 		return $html;
