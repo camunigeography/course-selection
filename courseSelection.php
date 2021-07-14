@@ -448,11 +448,16 @@ class courseSelection extends frontControllerApplication
 		$data = $this->getSelections ('yeargroup, surname, forename, college', array (), $this->user);
 		
 		# Compile the HTML
-		$html  = "<h2>Course allocation</strong></h2>";
-		$html .= "<p>Name: <strong>" . htmlspecialchars ("{$data['forename']} {$data['surname']}") . '</strong></p>';
-		$html .= "<p>College: <strong>{$data['college']}</strong></p>";
-		$html .= "<p>You have been allocated to the following courses:</p>";
-		$html .= $this->allocationsListFormatted ($data['papers'], $this->yeargroup);
+		$html  = "\n<h2>Course allocation</strong></h2>";
+		if (!$data) {
+			$html .= "\n<p>We do not yet have allocations set for you.</p>";
+			$html .= "\n<p>Please contact the Undergraduate Office if you believe this is incorrect.</p>";
+		} else {
+			$html .= "\n<p>Name: <strong>" . htmlspecialchars ("{$data['forename']} {$data['surname']}") . '</strong></p>';
+			$html .= "\n<p>College: <strong>{$data['college']}</strong></p>";
+			$html .= "\n<p>You have been allocated to the following courses:</p>";
+			$html .= $this->allocationsListFormatted ($data['papers'], $this->yeargroup);
+		}
 		
 		# Return the HTML
 		return $html;
