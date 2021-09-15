@@ -134,7 +134,8 @@ class courseSelection extends frontControllerApplication
 			  `II_coursenames` text COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Course names, one per line',
 			  `II_showoutcome` TINYINT DEFAULT NULL COMMENT 'Results now visible to students and staff?',
 			  `specialCaseSelections` TEXT NULL COMMENT 'Special-case students with different selection numbers; add username,required',
-			  `ignoreUnsubmitted` text COLLATE utf8mb4_unicode_ci COMMENT 'Students (as a list of usernames, one per line) to ignore temporarily if they have not submitted choices, to avoid capping being blocked'
+			  `ignoreUnsubmitted` text COLLATE utf8mb4_unicode_ci COMMENT 'Students (as a list of usernames, one per line) to ignore temporarily if they have not submitted choices, to avoid capping being blocked',
+			  `additionalCourseCoordinators` TEXT NULL COMMENT 'Additional course coordinators, one username per line'
 			) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8mb4_unicode_ci COMMENT='Settings';
 			
 			-- Student selections
@@ -170,6 +171,7 @@ class courseSelection extends frontControllerApplication
 				'II_coursenames' => array ('cols' => 60, 'rows' => 15, 'picker' => true, 'regexp' => '^([0-9]+): (.+)$', 'description' => 'Each line must begin with the course number followed by a colon and a space',),
 				'specialCaseSelections' => array ('heading' => array (3 => 'Other settings'), 'cols' => 30, 'rows' => 5, ),
 				'ignoreUnsubmitted' => array ('picker' => true, 'cols' => 20, 'rows' => 5, ),
+				'additionalCourseCoordinators' => array ('heading' => array (3 => 'Additional course coordinators'), ),
 			),
 		);
 		
@@ -1392,7 +1394,7 @@ class courseSelection extends frontControllerApplication
 	{
 		# Get the data and return it
 		$callbackFunction = $this->settings['academicStaffCallback'];
-		$academicStaff = $callbackFunction ($this->databaseConnection);
+		$academicStaff = $callbackFunction ($this->databaseConnection, $this->settings['additionalCourseCoordinators']);
 		return $academicStaff;
 	}
 	

@@ -19,7 +19,7 @@ function getUser ($databaseConnection, $userId)
 }
 
 # Callback function to get a list of academic staff
-function getAcademicStaff ($databaseConnection)
+function getAcademicStaff ($databaseConnection, $additionalCourseCoordinators)
 {
 	# Get the list
 	// ...
