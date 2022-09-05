@@ -107,7 +107,7 @@ class courseSelection extends frontControllerApplication
 			  `active` enum('','Yes','No') NOT NULL DEFAULT 'Yes' COMMENT 'Currently active?',
 			  `privilege` enum('Administrator','Restricted administrator') NOT NULL DEFAULT 'Administrator' COMMENT 'Administrator level',
 			  PRIMARY KEY (`username__JOIN__people__people__reserved`)
-			) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8mb4_unicode_ci COMMENT='System administrators';
+			) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='System administrators';
 			
 			-- Settings
 			CREATE TABLE `settings` (
@@ -136,7 +136,7 @@ class courseSelection extends frontControllerApplication
 			  `specialCaseSelections` TEXT NULL COMMENT 'Special-case students with different selection numbers; add username,required',
 			  `ignoreUnsubmitted` text COMMENT 'Students (as a list of usernames, one per line) to ignore temporarily if they have not submitted choices, to avoid capping being blocked',
 			  `additionalCourseCoordinators` TEXT NULL COMMENT 'Additional course coordinators, one username per line'
-			) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8mb4_unicode_ci COMMENT='Settings';
+			) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='Settings';
 			
 			-- Student selections
 			CREATE TABLE `selections` (
@@ -149,7 +149,7 @@ class courseSelection extends frontControllerApplication
 			  `dissertation` varchar(255) DEFAULT NULL COMMENT 'Dissertation title',
 			  `comments` varchar(400) DEFAULT NULL COMMENT 'Reasons',
 			  `updatedAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Updated at'
-			) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8mb4_unicode_ci COMMENT='Student selections';
+			) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='Student selections';
 		";
 	}
 	
