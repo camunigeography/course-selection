@@ -79,8 +79,8 @@ class courseSelection extends frontControllerApplication
 			'feedback' => array (
 				'description'	=> 'Feedback/contact form',
 				'url'			=> 'feedback.html',
-				'tab'			=> ($this->userIsAdministrator ? '' : 'Feedback'),
-				'icon'			=> ($this->userIsAdministrator ? 'comment' : NULL),
+				'tab'			=> 'Feedback',
+				'icon'			=> 'comment',
 			),
 			'capping' => array (
 				'description'	=> 'Import capping allocations',
