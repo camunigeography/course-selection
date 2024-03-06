@@ -3,17 +3,17 @@
 # Load using:
 #	Course selection system
 #	Include /path/to/course-selection/.httpd.conf.extract.txt
-#	Use MacroCourseSelection /students/courseselection "/path/to/course-selection" "Course selection"
+#	Use MacroCourseSelection /students/courseselection "/path/to/course-selection"
 
 
 # Organisations directory
-<Macro MacroCourseSelection $baseUrl $repoDirectory $description>
+<Macro MacroCourseSelection $baseUrl $repoDirectory>
 	
 	# Load assets
 	Alias $baseUrl/images $repoDirectory/images
 	
 	# Front controller application support
-	Use MacroFrontControllerApplication "$baseUrl/" "$description"
+	Use MacroFrontControllerApplication "$baseUrl/" "Course selection"
 	
 	# Application routing
 	RewriteRule ^$baseUrl/(submit|selections|college|studentdata|capping).html$ $baseUrl/index.html?action=$1 [L,QSA]
