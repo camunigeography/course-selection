@@ -1,7 +1,6 @@
 <?php
 
 # Class to provide a course selection system
-require_once ('frontControllerApplication.php');
 class courseSelection extends frontControllerApplication
 {
 	# Define the defaults; this is an override to the base class so that some can be dynamically set
@@ -191,7 +190,6 @@ class courseSelection extends frontControllerApplication
 		$this->userIsStaff = ($this->userIsDos || isSet ($staff[$this->user]) || $this->userIsAdministrator);
 		
 		# Set the current academic year
-		require_once ('timedate.php');
 		$this->academicYear = timedate::academicYear (5, true);		// May
 		$this->academicYearStart = substr ($this->academicYear, 0, 4);
 		
@@ -1205,7 +1203,6 @@ class courseSelection extends frontControllerApplication
 		));
 		
 		# Do checks on the pasted data
-		require_once ('csv.php');
 		if ($unfinalisedData = $form->getUnfinalisedData ()) {
 			if ($unfinalisedData['yeargroup'] && $unfinalisedData['data']) {
 				
@@ -1374,7 +1371,6 @@ class courseSelection extends frontControllerApplication
 		$headerLabels += $this->databaseConnection->getHeadings ('people', 'colleges');
 		
 		# Serve the CSV
-		require_once ('csv.php');
 		csv::serve ($data, $filenameBase = strtolower ("selections-{$yeargroup}"), $timestamp = true, $headerLabels);
 	}
 	

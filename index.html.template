@@ -45,7 +45,7 @@ function getUserIsDosColleges ($databaseConnection, $userId /* or false for all 
 
 
 # Run the application with the specified settings
-require_once ('course-selection/courseSelection.php');
+require_once ('vendor/autoload.php');
 new courseSelection ($settings);
 
 ?>
