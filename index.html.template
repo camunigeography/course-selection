@@ -19,9 +19,9 @@ function getUser ($databaseConnection, $userId)
 }
 
 # Callback function to get the year group of students
-function getYeargroup ($databaseConnection, $yeargroupId)
+function getYeargroup ($databaseConnection, $cohortId)
 {
-	# Get the list
+	# Get the list of usernames for this cohort (e.g. undergraduate2024)
 	// ...
 	return $yeargroup;
 }
