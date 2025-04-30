@@ -536,7 +536,7 @@ class courseSelection extends frontControllerApplication
 		}
 		
 		# Get the details for this student
-		if (!$this->userInfo = $this->getUser ($this->user)) {
+		if (!$this->getUser ($this->user)) {	// User may have been switched, by an admin
 			$html .= $this->reportError ("Could not retrieve details for {$this->user} at\n{$_SERVER['_PAGE_URL']}");
 			echo $html;
 			#!# Mail admin
