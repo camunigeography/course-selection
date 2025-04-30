@@ -269,7 +269,7 @@ class courseSelection extends frontControllerApplication
 		if ($this->action == 'settings') {return;}
 		
 		# Do this for each group
-		foreach ($this->students as $yeargroup => $students) {
+		foreach ($this->students as $yeargroup => $students_ignored) {
 			
 			# Rearrange as paper1=>name, 2=>name, etc. for each group
 			$courses = array ();
@@ -385,7 +385,7 @@ class courseSelection extends frontControllerApplication
 		# Convert the data into HTML
 		$html  = "\n<p>As a DoS, you can view the course selections for each student " . (count ($colleges) == 1 ? 'in the College' : 'in each College') . ", which will appear as they are submitted.</p>";
 		$choicesBeingOrdered = array ();
-		foreach ($this->students as $yeargroup => $ignored) {
+		foreach ($this->students as $yeargroup => $students_ignored) {
 			if ($this->settings[$yeargroup . '_type'] == 'select') {
 				if (!$this->cappingDataPresent[$yeargroup]) {	// For yeargroups where students specify an ordering, the ordering is only relevant until capping is done
 					$choicesBeingOrdered[] = 'Part ' . $yeargroup;
@@ -397,7 +397,7 @@ class courseSelection extends frontControllerApplication
 		}
 		
 		# If a yeargroup is not enabled, say so at the top
-		foreach ($this->students as $yeargroup => $ignored) {
+		foreach ($this->students as $yeargroup => $students_ignored) {
 			if (!$this->settings["{$yeargroup}_showoutcome"]) {
 				$html .= "\n<div class=\"graybox\">";
 				$html .= "\n\t<p class=\"notyetvisible\"><em><strong>Note:</strong> The details for <strong>Part {$yeargroup}</strong> are not yet visible to staff, as per the <a href=\"{$this->baseUrl}/settings.html\">settings</a>." . ($this->userIsAdministrator ? ' <strong>However</strong>, you can see these as you are an Administrator.' : '') . "</em></p>";
@@ -411,7 +411,7 @@ class courseSelection extends frontControllerApplication
 			$html .= "\n<h2 id=\"{$collegeId}\">{$collegeName}:</h2>";
 			
 			# Loop through each yeargroup in the settings
-			foreach ($this->students as $yeargroup => $ignored) {
+			foreach ($this->students as $yeargroup => $students_ignored) {
 				
 				# Skip this year if required
 				if (!$this->settings["{$yeargroup}_showoutcome"] && !$this->userIsAdministrator) {continue;}
@@ -857,7 +857,7 @@ class courseSelection extends frontControllerApplication
 	{
 		# Get the totals
 		$cappingDataPresent = array ();
-		foreach ($this->students as $yeargroup => $ignore) {
+		foreach ($this->students as $yeargroup => $students_ignored) {
 			if ($this->settings[$yeargroup . '_type'] == 'select') {
 				$total = $this->databaseConnection->getTotal ($this->settings['database'], $this->settings['table'], $restrictionSql = "WHERE papersCapped IS NOT NULL AND academicYear = '{$this->academicYear}' AND yeargroup = '{$yeargroup}'");
 			} else {
@@ -887,7 +887,7 @@ class courseSelection extends frontControllerApplication
 		$data = application::regroup ($data, 'yeargroup', false);
 		
 		# If a yeargroup is not enabled, say so at the top
-		foreach ($this->students as $yeargroup => $ignored) {
+		foreach ($this->students as $yeargroup => $students_ignored) {
 			if (!$this->settings["{$yeargroup}_showoutcome"]) {
 				$selectionsHtml .= "\n<div class=\"graybox\">";
 				$selectionsHtml .= "\n\t<p class=\"notyetvisible\"><em><strong>Note:</strong> The details for <strong>Part {$yeargroup}</strong> are not yet visible to staff, as per the <a href=\"{$this->baseUrl}/settings.html\">settings</a>." . ($this->userIsAdministrator ? ' <strong>However</strong>, you can see these as you are an Administrator.' : '') . "</em></p>";
@@ -897,7 +897,7 @@ class courseSelection extends frontControllerApplication
 		
 		# Loop through each year group
 		$jumplist = array ();
-		foreach ($this->students as $yeargroup => $students) {	// Loop through the definition, so that all year groups are definitely present
+		foreach ($this->students as $yeargroup => $students_ignored) {	// Loop through the definition, so that all year groups are definitely present
 			
 			# Skip if not showing
 			if (!$this->settings["{$yeargroup}_showoutcome"] && !$this->userIsAdministrator) {continue;}
@@ -972,7 +972,7 @@ class courseSelection extends frontControllerApplication
 		# Export links, if the user is an admin
 		if ($this->userIsAdministrator) {
 			$exportLinks = array ();
-			foreach ($this->students as $yeargroup => $ignore) {
+			foreach ($this->students as $yeargroup => $students_ignored) {
 				$exportLinks[] = "<a href=\"{$this->baseUrl}/selections-" . strtolower ($yeargroup) . ".csv\">Part {$yeargroup}</a>";
 			}
 			$exportLink = "\n<p>" . $this->icon ('page_excel') . 'Download raw data for: ' . implode (' and ', $exportLinks) . '.</p>';
@@ -1150,7 +1150,7 @@ class courseSelection extends frontControllerApplication
 		
 		# Determine the yeargroups involving capping
 		$yeargroups = array ();
-		foreach ($this->students as $yeargroup => $students) {
+		foreach ($this->students as $yeargroup => $students_ignored) {
 			if ($this->settings[$yeargroup . '_type'] == 'select') {
 				$yeargroups[$yeargroup] = 'Part ' . $yeargroup . ($this->cappingDataPresent[$yeargroup] ? ' (Replace current capping data)' : '');
 			}
