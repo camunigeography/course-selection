@@ -3,6 +3,9 @@
 # Class to provide a course selection system
 class courseSelection extends frontControllerApplication
 {
+	# Class properties
+	private $userDetails;
+	
 	# Define the defaults; this is an override to the base class so that some can be dynamically set
 	public function defaults ()
 	{
@@ -22,7 +25,6 @@ class courseSelection extends frontControllerApplication
 			'tabUlClass'					=> 'tabsflat',
 			'databaseAssessments' => 'assessments',	/* Note that these are only used for the lookup of people and colleges from the people database, not the main application itself */
 			'userCallback'				=> NULL,		// NB Currently only a simple public function name supported
-			'academicStaffCallback'		=> NULL,		// NB Currently only a simple public function name supported
 			'yeargroupCallback'			=> NULL,		// NB Currently only a simple public function name supported
 			'userIsDosCollegesCallback'	=> NULL,		// NB Currently only a simple public function name supported
 			'contactsDatabaseUrl'		=> NULL,
@@ -182,12 +184,14 @@ class courseSelection extends frontControllerApplication
 	# Extra processing, pre-actions
 	public function mainPreActions ()
 	{
+		# Get the details of the user
+		$this->userDetails = $this->getUser ($this->user);
+		
 		# Determine if the user is a DoS
 		$this->userIsDos = $this->userIsDos ();	// Returns a list of colleges for which the user is a DoS
 		
-		# Get current staff
-		$academicStaff = $this->getAcademicStaff ();
-		$isAcademicStaff = (isSet ($academicStaff[$this->user]));
+		# Determine if the user is a member of academic staff
+		$isAcademicStaff = ($this->userDetails['personTypeMoniker'] == 'academic');
 		
 		# Determine if the user is staff
 		$this->userIsStaff = ($this->userIsDos || $isAcademicStaff || in_array ($this->user, $this->settings['additionalCourseCoordinators']) || $this->userIsAdministrator);
@@ -1385,16 +1389,6 @@ class courseSelection extends frontControllerApplication
 		$callbackFunction = $this->settings['userCallback'];
 		$data = $callbackFunction ($this->databaseConnection, $userId);
 		return $data;
-	}
-	
-	
-	# Function to get a list of academic staff
-	private function getAcademicStaff ()
-	{
-		# Get the data and return it
-		$callbackFunction = $this->settings['academicStaffCallback'];
-		$academicStaff = $callbackFunction ($this->databaseConnection);
-		return $academicStaff;
 	}
 	
 	

@@ -4,7 +4,6 @@
 $settings = array (
 	'password'					=> 'the_password',
 	'userCallback'				=> 'getUser',
-	'academicStaffCallback'		=> 'getAcademicStaff',
 	'yeargroupCallback'			=> 'getYeargroup',
 	'userIsDosCollegesCallback'	=> 'getUserIsDosColleges',
 	'contactsDatabaseUrl'		=> '/contacts/database/',
@@ -13,17 +12,10 @@ $settings = array (
 # Function to get details of a user
 function getUser ($databaseConnection, $userId)
 {
-	# Look up the user's status
+	# Look up the user's status, returning at least the specified fields
+	$fields = array ('personTypeMoniker');
 	// ...
 	return $userData;
-}
-
-# Callback function to get a list of academic staff
-function getAcademicStaff ($databaseConnection)
-{
-	# Get the list
-	// ...
-	return $academicStaff;
 }
 
 # Callback function to get the year group of students
@@ -33,7 +25,6 @@ function getYeargroup ($databaseConnection, $yeargroupId)
 	// ...
 	return $yeargroup;
 }
-
 
 # Callback function to determine if the user is a DoS, returning a list of their colleges if so
 function getUserIsDosColleges ($databaseConnection, $userId /* or false for all */)
