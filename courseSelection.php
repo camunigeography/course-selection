@@ -186,8 +186,11 @@ class courseSelection extends frontControllerApplication
 		$this->userIsDos = $this->userIsDos ();	// Returns a list of colleges for which the user is a DoS
 		
 		# Get current staff
-		$staff = $this->getAcademicStaff ();
-		$this->userIsStaff = ($this->userIsDos || isSet ($staff[$this->user]) || $this->userIsAdministrator);
+		$academicStaff = $this->getAcademicStaff ();
+		$isAcademicStaff = (isSet ($academicStaff[$this->user]));
+		
+		# Determine if the user is staff
+		$this->userIsStaff = ($this->userIsDos || $isAcademicStaff || in_array ($this->user, $this->settings['additionalCourseCoordinators']) || $this->userIsAdministrator);
 		
 		# Set the current academic year
 		$this->academicYear = timedate::academicYear (5, true);		// May
@@ -1390,7 +1393,7 @@ class courseSelection extends frontControllerApplication
 	{
 		# Get the data and return it
 		$callbackFunction = $this->settings['academicStaffCallback'];
-		$academicStaff = $callbackFunction ($this->databaseConnection, $this->settings['additionalCourseCoordinators']);
+		$academicStaff = $callbackFunction ($this->databaseConnection);
 		return $academicStaff;
 	}
 	
