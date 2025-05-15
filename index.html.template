@@ -9,7 +9,7 @@ $settings = array (
 	'contactsDatabaseUrl'		=> '/contacts/database/',
 );
 
-# Function to get details of a user
+# Function to get details of a user; this will only be called when a user is logged in
 function getUser ($databaseConnection, $userId)
 {
 	# Look up the user's status, returning at least the specified fields

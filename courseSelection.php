@@ -191,7 +191,7 @@ class courseSelection extends frontControllerApplication
 		$this->userIsDos = $this->userIsDos ();	// Returns a list of colleges for which the user is a DoS
 		
 		# Determine if the user is a member of academic staff
-		$isAcademicStaff = ($this->userDetails['personTypeMoniker'] == 'academic');
+		$isAcademicStaff = ($this->userDetails && $this->userDetails['personTypeMoniker'] == 'academic');
 		
 		# Determine if the user is staff
 		$this->userIsStaff = ($this->userIsDos || $isAcademicStaff || in_array ($this->user, $this->settings['additionalCourseCoordinators']) || $this->userIsAdministrator);
@@ -1383,11 +1383,14 @@ class courseSelection extends frontControllerApplication
 	
 	
 	# Function to get the user
-	private function getUser ($userId)
+	private function getUser ($username)
 	{
+		# No details if not yet logged in
+		if (!$username) {return false;}
+		
 		# Get the data and return it
 		$callbackFunction = $this->settings['userCallback'];
-		$data = $callbackFunction ($this->databaseConnection, $userId);
+		$data = $callbackFunction ($this->databaseConnection, $username);
 		return $data;
 	}
 	
