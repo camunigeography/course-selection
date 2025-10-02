@@ -19,10 +19,4 @@
 	RewriteRule ^$baseUrl/(submit|selections|college|studentdata|capping).html$ $baseUrl/index.html?action=$1 [L,QSA]
 	RewriteRule ^$baseUrl/selections-(ib|ii).csv$ $baseUrl/index.html?action=export&yeargroup=$1 [L,QSA]
 	
-	# Downloads
-	<LocationMatch "^$baseUrl/(.+)\.csv$">
-		php_value auto_prepend_file none
-		php_value auto_append_file none
-	</LocationMatch>
-	
 </Macro>
