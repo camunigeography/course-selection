@@ -357,10 +357,7 @@ class courseSelection extends frontControllerApplication
 			return;
 		}
 		
-		# Start the HTML
-		$html  = "\n<p>As a DoS, you can view the allocations to each student:</p>";
-		
-		# Get the list of colleges for this Dos
+		# Get the list of colleges for this DoS
 		$colleges = $this->userIsDos;
 		
 		# Add the allocations, limited to the colleges
