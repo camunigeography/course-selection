@@ -389,7 +389,7 @@ class courseSelection extends frontControllerApplication
 		
 		# Convert the data into HTML
 		$html  = "\n<p>As a DoS, you can view the course selections for each student " . (count ($colleges) == 1 ? 'in the College' : 'in each College') . ", which will appear as they are submitted.</p>";
-		$html .= "\n<p>Students are able to make updates until end of the closing dates, which are:<br />Part IB: <strong>{$this->settings['IB_closing']}</strong>, Part II: <strong>{$this->settings['II_closing']}</strong>.</p>";
+		$html .= "\n<p>Students are able to make updates until the end of the closing dates, which are:<br />Part IB: <strong>{$this->settings['IB_closing']}</strong>, Part II: <strong>{$this->settings['II_closing']}</strong>.</p>";
 		$html .= "\n<br />";
 		$choicesBeingOrdered = array ();
 		foreach ($this->students as $yeargroup => $students_ignored) {
@@ -980,7 +980,7 @@ class courseSelection extends frontControllerApplication
 		$html  = '';
 		
 		# Note closing dates
-		$html .= "\n<p>Students are able to make updates until end of the closing dates, which are:<br />Part IB: <strong>{$this->settings['IB_closing']}</strong>, Part II: <strong>{$this->settings['II_closing']}</strong>.</p>";
+		$html .= "\n<p>Students are able to make updates until the end of the closing dates, which are:<br />Part IB: <strong>{$this->settings['IB_closing']}</strong>, Part II: <strong>{$this->settings['II_closing']}</strong>.</p>";
 		$html .= "\n<br />";
 		
 		# Add the jumplist
