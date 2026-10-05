@@ -38,9 +38,6 @@ class courseSelection extends frontControllerApplication
 	# Specify additional actions
 	public function actions ()
 	{
-		# Determine whether any outcomes can be shown
-		$showOutcome = ($this->settings['IB_showoutcome'] || $this->settings['II_showoutcome'] || $this->userIsAdministrator);
-		
 		# Define the actions
 		$actions = array (
 			'submit' => array (
@@ -55,14 +52,14 @@ class courseSelection extends frontControllerApplication
 				'url'			=> 'college.html',
 				'tab'			=> 'Selections in your College' . (count ($this->userIsDos) > 1 ? 's' : ''),
 				'icon'			=> 'timeline_marker',
-				'enableIf'		=> ($this->userIsDos && $showOutcome),
+				'enableIf'		=> $this->userIsDos,
 			),
 			'selections' => array (
 				'description'	=> 'All selections',
 				'url'			=> 'selections.html',
 				'tab'			=> 'All selections',
 				'icon'			=> 'application_cascade',
-				'enableIf'		=> ($this->userIsStaff && $showOutcome),
+				'enableIf'		=> $this->userIsStaff,
 			),
 			'export' => array (
 				'description'	=> 'Selections as CSV',
@@ -352,6 +349,14 @@ class courseSelection extends frontControllerApplication
 	# Function to show the allocations for a college or set of colleges
 	public function college ()
 	{
+		# Determine whether the outcome can be shown
+		$showOutcome = ($this->settings['IB_showoutcome'] || $this->settings['II_showoutcome'] || $this->userIsAdministrator);
+		if (!$showOutcome) {
+			$html = "\n<p>The administrator has not yet set the results to be visible.</p>";
+			echo $html;
+			return;
+		}
+		
 		# Start the HTML
 		$html  = "\n<p>As a DoS, you can view the allocations to each student:</p>";
 		
@@ -874,6 +879,14 @@ class courseSelection extends frontControllerApplication
 	# Function to compile the responses
 	public function selections ()
 	{
+		# Determine whether the outcome can be shown
+		$showOutcome = ($this->settings['IB_showoutcome'] || $this->settings['II_showoutcome'] || $this->userIsAdministrator);
+		if (!$showOutcome) {
+			$html = "\n<p>The administrator has not yet set the results to be visible.</p>";
+			echo $html;
+			return;
+		}
+		
 		# Start the HTML
 		$selectionsHtml = '';
 		
@@ -1374,7 +1387,7 @@ class courseSelection extends frontControllerApplication
 		}
 		
 		# Set the header labels
-		$headerLabels = $this->databaseConnection->getHeadings ($this->settings['database'], $this->settings['table']);
+		$headerLabels  = $this->databaseConnection->getHeadings ($this->settings['database'], $this->settings['table']);
 		$headerLabels += $this->databaseConnection->getHeadings ('people', 'colleges');
 		
 		# Serve the CSV
