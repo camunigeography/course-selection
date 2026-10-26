@@ -1,10 +1,26 @@
 <?php
 
+#!# Need to state when student is missing at e.g. /undergraduate/courseselection/college.html#homerton
+#!# Convert checkboxes/select to a simple 'Students must select ordering, as capping may take place'
+#!# Two cases "#!# Finalising the GUI in this case is not properly tested" below
+#!# Chicken-and-egg situation with post-capping addition of incoming Part II students: "Changes cannot now be made for this Part II student because capping data is present."
+
+
+
 # Class to provide a course selection system
 class courseSelection extends frontControllerApplication
 {
 	# Class properties
 	private $userDetails;
+	private $userIsDos;
+	private $academicYear;
+	private $academicYearStart;
+	private $students;
+	private $educationStudents;
+	private $yeargroup;
+	private $cappingDataPresent;
+	
+	
 	
 	# Define the defaults; this is an override to the base class so that some can be dynamically set
 	public function defaults ()
